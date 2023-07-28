@@ -1,17 +1,16 @@
 #include "main.h"
 
-/**
- * handle_print - Prints an argument based on its type
- * @fmt: Formatted string in which to print the arguments.
- * @list: List of arguments to be printed.
- * @ind: ind.
- * @buffer: Buffer array to handle print.
- * @flags: Calculates active flags
- * @width: get width.
- * @precision: Precision specification
- * @size: Size specifier
- * Return: 1 or 2;
+/*
+ * @buffer: This buffer array handles print
+ * @flags: It calculates numbers of active flags
+ * @list: It list arguments to be printed
+ * @fmt: This formatted string is used to print the arg
+ * handle_print - It prints arg base on type
+ * @width: To get width
+ * @precision: This is used for Precision specification
+ * @size: It specifies size
  */
+
 int handle_print(const char *fmt, int *ind, va_list list, char buffer[],
 	int flags, int width, int precision, int size)
 {
@@ -31,18 +30,18 @@ int handle_print(const char *fmt, int *ind, va_list list, char buffer[],
 	{
 		if (fmt[*ind] == '\0')
 			return (-1);
-	unknow_len += write(1, "%%", 1);
-	if (fmt[*ind - 1] == ' ')
-		unknow_len += write(1, " ", 1);
-	else if (width)
-	{
-		--(*ind);
-		while (fmt[*ind] != ' ' && fmt[*ind] != '%')
+		unknow_len += write(1, "%%", 1);
+		if (fmt[*ind - 1] == ' ')
+			unknow_len += write(1, " ", 1);
+		else if (width)
+		{
 			--(*ind);
-	if (fmt[*ind] == ' ')
-			--(*ind);
-		return (1);
-	}
+			while (fmt[*ind] != ' ' && fmt[*ind] != '%')
+				--(*ind);
+			if (fmt[*ind] == ' ')
+				--(*ind);
+			return (1);
+		}
 		unknow_len += write(1, &fmt[*ind], 1);
 		return (unknow_len);
 	}
